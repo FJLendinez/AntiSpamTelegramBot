@@ -4,7 +4,7 @@ import telebot
 class AntiSpamBot:
 
     def __init__(self, token, spammers):
-        bot = telebot.AsyncTeleBot(token)
+        bot = telebot.TeleBot(token)
 
         @bot.message_handler(func=lambda m: True, content_types=['new_chat_participant'])
         def on_user_joins(message):
@@ -20,4 +20,8 @@ class AntiSpamBot:
         self.bot = bot
 
     def run(self):
-        self.bot.polling()
+        while True:
+            try:
+                self.bot.polling(none_stop=True)
+            except:
+                pass
